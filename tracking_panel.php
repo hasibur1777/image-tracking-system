@@ -34,64 +34,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 
 <body>
-    <!-- top navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
-                <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
-            </button>
-            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Image Tracking</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="topNavBar">
-                <div class="d-flex ms-auto my-3 my-lg-0">
-                </div>
-                <ul class="navbar-nav">
-                    <li>
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                            <input type="submit" value="Logout" class="btn btn-sm btn-outline-danger">
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- top navigation bar -->
-    <!-- offcanvas -->
-    <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
-        <div class="offcanvas-body p-0">
-            <nav class="navbar-dark">
-                <ul class="navbar-nav">
-                    <li>
-                        <div class="text-muted small fw-bold text-uppercase px-3">
-                        </div>
-                    </li>
-                    <li>
-                        <a href="welcome.php" class="nav-link px-3 ">
-                            <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-3">
-                            <span class="me-2"><i class="bi bi-book-fill"></i></span>
-                            <span>Users</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="panel_setup.php" class="nav-link px-3 active">
-                            <span class="me-2"><i class="bi bi-book-fill"></i></span>
-                            <span>Track</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <!-- offcanvas -->
+
+<?php require "layouts/navbar-sidebar.php"; ?>
+    
     <main class="mt-5 pt-3">
         <div class="container-fluid">
             <div class="row">
@@ -100,20 +45,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <hr>
 
                     <div class="row">
-                        <div class="col-2"></div>
-                        <div class="col card p-2">
+                        <div class="col-6">
                             <div class="">
-                                <div class="row g-3 align-items-center">
+                                <div class="row g-3">
                                     <div class="col-3">
                                         <label for="" class="col-form-label">Barcode</label>
                                     </div>
-                                    <div class="col-3">
-                                        <input type="text" class="form-control" id='barcode' placeholder="enter barcode"
-                                            style="margin-bottom: 1rem">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" id='barcode'
+                                            placeholder="enter barcode">
+
+                                        <input type=button value="Submit" id="submitBtnId" class="btn btn-primary mt-1"
+                                            onClick="saveSnap()">
                                     </div>
+
                                 </div>
 
-                                <div class="row g-3 align-items-center">
+                                <div class="row g-3 align-items-center mt-3">
                                     <div class="col-3">
                                     </div>
                                     <div class="col-3">
@@ -124,28 +72,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <div class="row g-3 align-items-center">
                                     <div class="col-3">
                                     </div>
-                                    <div class="col-3">
-                                        <input type=button value="Submit" class="btn btn-primary mt-1"
-                                            onClick="saveSnap()">
-                                    </div>
+
                                 </div>
 
                                 <div id="results"></div>
 
-                                <div class="mt-2">
-                                    <?php
-                                        if (isset($_SESSION["last_img"])) {
-                                            ?>
-                                            <p>Last Image</p>
-                                            <img src="<?php echo $_SESSION["last_img"] ?>" alt="" width="156" height="120">
-                                            <?php
-                                        }
-                                        ?>
-                                </div>
 
                             </div>
                         </div>
-                        <div class="col-2"></div>
+                        <div class="col-6">
+                            <?php
+                            if (isset($_SESSION["last_img"])) {
+                                ?>
+                            <p><b>Last Barcode: </b><?php echo $_SESSION["barcode"] ?></p>
+                            <img src="<?php echo $_SESSION["last_img"] ?>" alt="" width="600" height="480">
+                            <?php
+                            }
+                            ?>
+                        </div>
                     </div>
 
                 </div>
@@ -164,6 +108,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </script>
 
     <script language="JavaScript">
+
+    var input = document.getElementById("barcode");
+
+    input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.getElementById("submitBtnId").click();
+        }
+    });
+
     function configure() {
         Webcam.set({
             width: 320,
@@ -204,6 +157,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     }
     </script>
+
+<?php
+    require "footer.php";
+    ?>
 
 </body>
 

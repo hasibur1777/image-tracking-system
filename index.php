@@ -33,7 +33,28 @@ if(isset($_POST['btn_login'])){
 				if($_SESSION['EMP_CODE']){
 				   $_SESSION['SESSIONCHECKING']=true;
                    $_SESSION["login_user"] = $username;
-					header("Location:welcome.php");
+
+                   require "db_conn.php";
+
+                   
+                   $my_query = "SELECT * FROM user_role WHERE user_id='$username'";
+
+                    $result = mysqli_query($conn, $my_query) or die("Query Failed");
+                    if(mysqli_num_rows($result) > 0){
+
+                        while ($row = mysqli_fetch_array($result)){
+                            if ($row['role'] == 'super_admin') {
+                                $_SESSION['super_admin'] = $username;
+                            }
+                            elseif ($row['role'] == 'admin') {
+                                $_SESSION['admin'] = $username;
+                            }
+                        }
+
+                        
+                    }
+
+					header("Location: welcome.php");
 				 }
 			}
 			else
@@ -127,6 +148,10 @@ if(isset($_POST['btn_login'])){
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
+
+    <?php
+    require "footer.php";
+    ?>
 </body>
 
 </html>
