@@ -1,78 +1,84 @@
 <?php
 
-ob_start(); 
+ob_start();
 
-if(!session_start()) session_start();
+if (!session_start()) session_start();
 
-if(isset($_POST['btn_login'])){
-    echo @$username=$_POST['user'];
-	echo @$password=$_POST['password'];
+if (isset($_POST['btn_login'])) {
+    echo @$username = $_POST['user'];
+    echo @$password = $_POST['password'];
     echo $username;
 
-        if(empty($username)){
-            @$_SESSION['MESSAGE']=@$message.="User Name can not be blank ."."<br>";
-             @$error=true;
-        }
-      if(empty($password)){
-        @$_SESSION['MESSAGE']=@$message.="Password field can not be blank ."."<br>";
-        @$error=true;
-      }
+    if (empty($username)) {
+        @$_SESSION['MESSAGE'] = @$message .= "User Name can not be blank ." . "<br>";
+        @$error = true;
+    }
+    if (empty($password)) {
+        @$_SESSION['MESSAGE'] = @$message .= "Password field can not be blank ." . "<br>";
+        @$error = true;
+    }
 
-      if((!empty($username))and(!empty($password))){
-		$response = file_get_contents("http://192.168.200.200:8281/auth/CheckUser/index?userId=$username&userPass=$password");
-		$json = json_decode($response, true);
+    if ((!empty($username)) and (!empty($password))) {
+        $response = file_get_contents("http://192.168.200.200:8281/auth/CheckUser/index?userId=$username&userPass=$password");
+        $json = json_decode($response, true);
 
-		if ($json['auth'] == 1) {
-			if($json['auth'] == 1){
-				$response2 = file_get_contents("http://192.168.150.232:8080/pb/hrms_apps_v_1_0_3/employee_basic/emb_id.php?id=$username");
-				$json2 = json_decode($response2, true);
-				print_r($json2);
+        if ($json['auth'] == 1) {
+            if ($json['auth'] == 1) {
+                $response2 = file_get_contents("http://192.168.150.232:8080/pb/hrms_apps_v_1_0_3/employee_basic/emb_id.php?id=$username");
+                $json2 = json_decode($response2, true);
+                print_r($json2);
 
-        $_SESSION['EMP_CODE']=$json2['EMP_CODE'][0];
+                $_SESSION['EMP_CODE'] = $json2['EMP_CODE'][0];
 
-				if($_SESSION['EMP_CODE']){
-				   $_SESSION['SESSIONCHECKING']=true;
-                   $_SESSION["login_user"] = $username;
+                if ($_SESSION['EMP_CODE']) {
+                    $_SESSION['SESSIONCHECKING'] = true;
+                    $_SESSION["login_user"] = $username;
 
-                   require "db_conn.php";
+                    require "backend/db_conn.php";
 
-                   
-                   $my_query = "SELECT * FROM user_role WHERE user_id='$username'";
+
+                    $my_query = "SELECT * FROM user_role WHERE user_id='$username'";
 
                     $result = mysqli_query($conn, $my_query) or die("Query Failed");
-                    if(mysqli_num_rows($result) > 0){
+                    if (mysqli_num_rows($result) > 0) {
 
-                        while ($row = mysqli_fetch_array($result)){
+                        while ($row = mysqli_fetch_array($result)) {
                             if ($row['role'] == 'super_admin') {
                                 $_SESSION['super_admin'] = $username;
-                            }
-                            elseif ($row['role'] == 'admin') {
-                                $_SESSION['admin'] = $username;
+
+                                $sql = "SELECT * FROM bc_business_global_catagory WHERE biz_global_cat_id='PROD_CAT' AND is_active=1";
+                                $query = mysqli_query($conn_qc, $sql);
+                                $all_products_arr = array();
+                                while ($row2 = mysqli_fetch_array($query)) {
+                                    $all_products_arr[$row2['short_code']] =  $row2['name'];
+                                }
+                                $_SESSION['products'] = $all_products_arr;
+                            } else {
+                                if ($row['role'] == 'admin') {
+                                    $_SESSION['admin'] = $username;
+                                }
+                                $all_products_arr = array();
+                                $sql2 = "SELECT * FROM user_prod WHERE user_id='$username'";
+                                $query2 = mysqli_query($conn, $sql2);
+                                while ($row2 = mysqli_fetch_array($query2)) {
+                                    $all_products_arr[$row2['short_code']] =  $row2['product'];
+                                }
+                                $_SESSION['products'] = $all_products_arr; //implode(" ,, ", $all_products_arr);
                             }
                         }
-
-                        
                     }
 
-					header("Location: welcome.php");
-				 }
-			}
-			else
-			{
-				 @$_SESSION['MESSAGE']=@$message.="User Name and Password does not match"."<br>";
-				 header("Location:index.php");
-			}
-		}
-
-        else
-            {
-                @$error=true;
+                    header("Location: welcome.php");
+                }
+            } else {
+                @$_SESSION['MESSAGE'] = @$message .= "User Name and Password does not match" . "<br>";
                 header("Location:index.php");
             }
-	}
-
-
-
+        } else {
+            @$error = true;
+            header("Location:index.php");
+        }
+    }
 }
 
 ?>
@@ -87,8 +93,7 @@ if(isset($_POST['btn_login'])){
     <title>Image Tracking System</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Theme style -->
     <link rel="stylesheet" href="css/adminlte.min.css">
 </head>
@@ -150,7 +155,7 @@ if(isset($_POST['btn_login'])){
     <script src="dist/js/adminlte.min.js"></script>
 
     <?php
-    require "footer.php";
+    require "backend/footer.php";
     ?>
 </body>
 
