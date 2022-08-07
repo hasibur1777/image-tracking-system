@@ -1,2 +1,2 @@
 upload/*.jpeg
-db_conn.php
+backend/db_conn.php
