@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 body,
 button {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 :root {
   --offcanvas-width: 270px;
@@ -17,7 +17,7 @@ button {
 .sidebar-link .right-icon {
   display: inline-flex;
 }
-.sidebar-link[aria-expanded="true"] .right-icon {
+.sidebar-link[aria-expanded='true'] .right-icon {
   transform: rotate(180deg);
 }
 @media (min-width: 992px) {
@@ -39,10 +39,10 @@ button {
     top: var(--topNavbarHeight);
   }
 }
-.card_link{
+.card_link {
   color: white;
   text-decoration: none;
 }
-.card_link:hover{
+.card_link:hover {
   color: wheat;
 }

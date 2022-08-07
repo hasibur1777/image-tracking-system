@@ -25,4 +25,3 @@ $username_qc, $password_qc, $dbname_qc);
 if ($conn_qc->connect_error) {
     die("Connection failed: " . $conn_qc->connect_error);
 }
-?>

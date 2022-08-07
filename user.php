@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <?php require "layouts/navbar-sidebar.php"; ?>
+    <?php require "layouts/navbar_sidebar.php"; ?>
 
 
     <main class="mt-5 pt-3">
@@ -253,7 +253,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (result.isConfirmed) {
 
                     $.ajax({
-                        url: "remove_user_prod.php?id=" + uid,
+                        url: "backend/remove_user_prod.php?id=" + uid,
                         cache: false,
                         success: function(result) {
                             /*

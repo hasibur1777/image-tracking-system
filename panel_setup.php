@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <?php require "layouts/navbar-sidebar.php"; ?>
+    <?php require "layouts/navbar_sidebar.php"; ?>
 
     <main class="mt-5 pt-3">
         <div class="container">

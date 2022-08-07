@@ -48,19 +48,19 @@
                     </div>
                 </li>
                 <li>
-                    <a href="welcome.php" class="nav-link px-3 color-black">
+                    <a href="./welcome.php" class="nav-link px-3 color-black">
                         <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="user.php" class="nav-link px-3 active color-black">
+                    <a href="./user.php" class="nav-link px-3 active color-black">
                         <span class="me-2"><i class="bi bi-person-fill"></i></span>
                         <span>Users</span>
                     </a>
                 </li>
                 <li>
-                    <a href="panel_setup.php" class="nav-link px-3 color-black">
+                    <a href="./panel_setup.php" class="nav-link px-3 color-black">
                         <span class="me-2"><i class="bi bi-camera-fill"></i></span>
                         <span>Track</span>
                     </a>

@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <?php require "layouts/navbar-sidebar.php"; ?>
+    <?php require "layouts/navbar_sidebar.php"; ?>
 
     <main class="mt-5 pt-3">
         <div class="container-fluid">
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="col-md-12">
                     <h4>Hello</h4>
                     <?php
-                    var_dump($_SESSION);
+                    //var_dump($_SESSION);
                     if (isset($_SESSION["super_admin"])) {
 
                         echo "<h1>Super admin</h1>";

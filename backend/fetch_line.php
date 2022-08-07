@@ -11,9 +11,9 @@ $ret_html .= '<option value="">Select One</option>';
 ?>
 
 <?php
-while($row = mysqli_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
 
-    $temp = "<option value='".$row['short_code']."'>".$row['name']."</option>";
+    $temp = "<option value='" . $row['short_code'] . "'>" . $row['name'] . "</option>";
     $ret_html .= $temp;
 }
 

@@ -1,5 +1,5 @@
 <?php
-require "db_conn.php";
+require "backend/db_conn.php";
 
 session_start();
 $user_id = $_SESSION["login_user"];
@@ -14,8 +14,8 @@ $barcode = $_GET['barcode'];
 $filename = $barcode . '-' . $time2 . '.jpeg';
 
 $url = '';
-if( move_uploaded_file($_FILES['webcam']['tmp_name'],'upload/'.$filename) ){
-   $url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/upload/' . $filename;
+if (move_uploaded_file($_FILES['webcam']['tmp_name'], 'upload/' . $filename)) {
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/upload/' . $filename;
 }
 
 echo $user_id . $product . $line . $point . $url;
@@ -28,9 +28,7 @@ $sqlquery = "INSERT INTO track (user_id, product, line, point, barcode, img_path
     VALUES ('$user_id', '$product','$line', '$point', '$barcode', '$url', '$time')";
 
 if (mysqli_query($conn, $sqlquery) === TRUE) {
-	echo "record inserted successfully";
+    echo "record inserted successfully";
 } else {
-	echo "Error: " . $sqlquery . "<br>" . $conn->error;
+    echo "Error: " . $sqlquery . "<br>" . $conn->error;
 }
-
-?>
