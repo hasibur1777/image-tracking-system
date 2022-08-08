@@ -17,11 +17,11 @@
 <!-- top navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-white fixed-top" style="background-color: #bbded7">
     <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
+        <button class="navbar-toggler navbar-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
             <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
-        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold color-black" href="#">Image Tracking</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold color-black" href="welcome.php">Image Tracking System</a>
+        <button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="topNavBar">
@@ -38,6 +38,7 @@
     </div>
 </nav>
 <!-- top navigation bar -->
+
 <!-- offcanvas -->
 <div class="offcanvas offcanvas-start sidebar-nav" tabindex="-1" id="sidebar" style="background-color: #bbded7ab">
     <div class="offcanvas-body p-0">

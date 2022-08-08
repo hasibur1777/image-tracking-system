@@ -176,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <input type="text" value='<?php echo json_encode($_SESSION['products']); ?>' id="products_id" hidden>
 
-            <table class="table table-striped table-hover text-center mt-2" id="userTable">
+            <table class="table table-striped table-hover mt-2" id="userTable">
                 <thead>
                     <tr>
                         <th scope="col">User ID</th>
