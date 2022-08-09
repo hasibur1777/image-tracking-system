@@ -217,8 +217,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             </td>
                             <td>
-                                <a href="edit_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="" at="<?php echo $row['user_id']; ?>" class="delete_btn btn btn-sm btn-danger">Delete</a>
+                                <?php
+                                if (isset($_SESSION['admin']) || isset($_SESSION['super_admin'])) {
+                                ?>
+                                    <a href="edit_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="" at="<?php echo $row['user_id']; ?>" class="delete_btn btn btn-sm btn-danger">Delete</a>
+
+                                <?php } else {
+                                    echo "- - -";
+                                }
+                                ?>
                             </td>
                         </tr>
 

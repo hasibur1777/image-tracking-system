@@ -46,12 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //var_dump($_SESSION);
                     if (isset($_SESSION["super_admin"])) {
 
-                        echo "<h1>Super admin</h1>";
+                        echo "<h1>Super admin  [ {$_SESSION['login_user']} ]</h1>";
                     } elseif (isset($_SESSION["admin"])) {
 
-                        echo "<h1>Admin</h1>";
+                        echo "<h1>Admin  [ {$_SESSION['login_user']} ]</h1>";
                     } else {
-                        echo "<h1>General User</h1>";
+                        echo "<h1>General User  [ {$_SESSION['login_user']} ]</h1>";
                     }
 
                     ?>

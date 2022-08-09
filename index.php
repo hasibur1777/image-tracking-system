@@ -37,7 +37,7 @@ if (isset($_POST['btn_login'])) {
                     require "backend/db_conn.php";
 
 
-                    $my_query = "SELECT * FROM user_role WHERE user_id='$username'";
+                    $my_query = "SELECT * FROM user_role WHERE user_id='$username' AND is_active=1";
 
                     $result = mysqli_query($conn, $my_query) or die("Query Failed");
                     if (mysqli_num_rows($result) > 0) {
@@ -58,17 +58,19 @@ if (isset($_POST['btn_login'])) {
                                     $_SESSION['admin'] = $username;
                                 }
                                 $all_products_arr = array();
-                                $sql2 = "SELECT * FROM user_prod WHERE user_id='$username'";
+                                $sql2 = "SELECT * FROM user_prod WHERE user_id='$username' WHERE is_active='1'";
                                 $query2 = mysqli_query($conn, $sql2);
                                 while ($row2 = mysqli_fetch_array($query2)) {
                                     $all_products_arr[$row2['short_code']] =  $row2['product'];
                                 }
                                 $_SESSION['products'] = $all_products_arr; //implode(" ,, ", $all_products_arr);
                             }
+                            header("Location: welcome.php");
                         }
+                    } else {
+                        session_destroy();
+                        header("location: index.php");
                     }
-
-                    header("Location: welcome.php");
                 }
             } else {
                 @$_SESSION['MESSAGE'] = @$message .= "User Name and Password does not match" . "<br>";
