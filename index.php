@@ -7,7 +7,6 @@ if (!session_start()) session_start();
 if (isset($_POST['btn_login'])) {
     echo @$username = $_POST['user'];
     echo @$password = $_POST['password'];
-    echo $username;
 
     if (empty($username)) {
         @$_SESSION['MESSAGE'] = @$message .= "User Name can not be blank ." . "<br>";
@@ -19,6 +18,7 @@ if (isset($_POST['btn_login'])) {
     }
 
     if ((!empty($username)) and (!empty($password))) {
+
         $response = file_get_contents("http://192.168.200.200:8281/auth/CheckUser/index?userId=$username&userPass=$password");
         $json = json_decode($response, true);
 
@@ -58,7 +58,7 @@ if (isset($_POST['btn_login'])) {
                                     $_SESSION['admin'] = $username;
                                 }
                                 $all_products_arr = array();
-                                $sql2 = "SELECT * FROM user_prod WHERE user_id='$username' WHERE is_active='1'";
+                                $sql2 = "SELECT * FROM user_prod WHERE user_id='$username' AND is_active='1'";
                                 $query2 = mysqli_query($conn, $sql2);
                                 while ($row2 = mysqli_fetch_array($query2)) {
                                     $all_products_arr[$row2['short_code']] =  $row2['product'];
